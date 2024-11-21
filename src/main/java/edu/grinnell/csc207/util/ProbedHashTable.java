@@ -244,7 +244,7 @@ public class ProbedHashTable<K, V> implements HashTable<K, V> {
     // Find out where the key belongs and put the pair there.
     int index = find(key);
     if (this.pairs[index] != null) {
-      result = ((Pair<K, V>) this.pairs[index]).value();
+      return result = ((Pair<K, V>) this.pairs[index]).value();
     } // if
     this.pairs[index] = new Pair<K, V>(key, value);
     // Report activity, if appropriate
