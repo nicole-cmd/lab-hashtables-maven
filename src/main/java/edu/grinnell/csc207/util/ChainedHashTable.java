@@ -178,10 +178,10 @@ public class ChainedHashTable<K, V> implements HashTable<K, V> {
    * @throws IndexOutOfBoundsException
    *   when the key is not in the table.
    */
+  @SuppressWarnings("unchecked")
   @Override
   public V get(K key) {
     int index = find(key);
-    @SuppressWarnings("unchecked")
     ArrayList<Pair<K, V>> alist = (ArrayList<Pair<K, V>>) buckets[index];
     if (alist == null) {
       if (REPORT_BASIC_CALLS && (reporter != null)) {
@@ -190,6 +190,9 @@ public class ChainedHashTable<K, V> implements HashTable<K, V> {
       throw new IndexOutOfBoundsException("Invalid key: " + key);
     } else {
       Pair<K, V> pair = alist.get(0);
+      if (!pair.key().equals(key)) {
+        reporter.report("not the same: key - " + key + " and value - " + pair.value());
+      } // if
       if (REPORT_BASIC_CALLS && (reporter != null)) {
         reporter.report("get(" + key + ") => " + pair.value());
       } // if reporter != null
@@ -377,6 +380,7 @@ public class ChainedHashTable<K, V> implements HashTable<K, V> {
    * @return the aforementioned index.
    */
   int find(K key) {
+    int index = Math.abs(key.hashCode()) % this.buckets.length;
     return Math.abs(key.hashCode()) % this.buckets.length;
   } // find(K)
 
