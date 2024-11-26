@@ -6,6 +6,7 @@ A lab on hash tables, structured for Maven.
 
 * Tiffany Tang
 * Nicole Gorrell
+* Khanh Do
 * Samuel A. Rebelsky (starter code)
 
 **Citations**
